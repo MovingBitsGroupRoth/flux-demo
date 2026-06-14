@@ -58,7 +58,7 @@ flux create kustomization flux-demo4-kustomization \
 --prune=true \
 --export > flux-demo4-kustomization.yaml
 
-flux get source git && echo "\nkust:" && flux get kustomization
+flux get source git && echo && echo "kust:" && flux get kustomization
 
 k get all -n demons --show-labels
 
@@ -66,6 +66,9 @@ k get all -n demons --show-labels
 flux create source git flux-demo5-source-git --url=https://github.com/MovingBitsGroupRoth/Argo-CD-for-the-Absolute-Beginners --branch=main --export > flux-demo5-source.yaml
 
 flux create helmrelease flux-demo5-helmrelease \
---chart=demotest \
+--chart=Section10_Helm_Charts/demotest \
 --source=GitRepository/flux-demo5-source-git \
 --export > flux-demo5-helmrelease.yaml
+
+flux get source git && echo && echo "kust:" && flux get kustomization
+
