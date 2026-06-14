@@ -54,7 +54,9 @@ flux create source git flux-demo4-source-git --url=https://github.com/MovingBits
 
 flux create kustomization flux-demo4-kustomization \
 --source=GitRepository/flux-demo4-source-git \
---namespace=demons \
+--namespace=flux-system \
 --path=./ \
 --prune=true \
 --export > flux-demo4-kustomization.yaml
+
+k get all -n demons
