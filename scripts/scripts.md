@@ -31,8 +31,7 @@ flux create kustomization flux-demo2-kustomization \
 path => Die Dateien liegen in der Root des Repositories, daher der Pfad ./
 prune => Alle Ressourcen, die nicht mehr in der Git-Repository definiert sind, werden gelöscht. Das ist wichtig, damit die Ressourcen immer mit dem Git-Repository synchronisiert bleiben.
 
-flux get source git
-flux get kustomization
+flux get source git && flux get kustomization
 
 k get all -n devopsinaction
 
@@ -59,4 +58,14 @@ flux create kustomization flux-demo4-kustomization \
 --prune=true \
 --export > flux-demo4-kustomization.yaml
 
-k get all -n demons
+flux get source git && echo "\nkust:" && flux get kustomization
+
+k get all -n demons --show-labels
+
+## demo5 - Helm
+flux create source git flux-demo5-source-git --url=https://github.com/MovingBitsGroupRoth/Argo-CD-for-the-Absolute-Beginners --branch=main --export > flux-demo5-source.yaml
+
+flux create helmrelease flux-demo5-helmrelease \
+--chart=demotest \
+--source=GitRepository/flux-demo5-source-git \
+--export > flux-demo5-helmrelease.yaml
