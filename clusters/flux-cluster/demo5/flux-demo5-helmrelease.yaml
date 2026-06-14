@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: demotest
+      chart: Section10_Helm_Charts/demotest
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: GitRepository
