@@ -70,5 +70,109 @@ flux create helmrelease flux-demo5-helmrelease \
 --source=GitRepository/flux-demo5-source-git \
 --export > flux-demo5-helmrelease.yaml
 
-flux get source git && echo && echo "kust:" && flux get kustomization
+flux get sources all
+
+flux get hr
+
+k get all -n demotest-ns
+
+## demo6 - Helm from Helm-Repository
+https://learning.oreilly.com/videos/flux-cd-for/9781806706457/9781806706457-video7_5/
+
+## OCI Registry
+
+### K8s Artifacts Manifest
+https://github.com/MovingBitsGroupRoth/ocidemo
+
+docker login ghcr.io
+User = MovingBitsGroupRoth
+Password = ghp_xyz....
+
+git clone https://github.com/MovingBitsGroupRoth/ocidemo
+
+cd "W:\Projekte_externe_GitHub_Referenzen\Flux CD\ocidemo\manifests"
+
+TAG="$(git rev-parse --short HEAD)" && \
+REPO="ghcr.io/movingbitsgrouproth/ocidemo" && \
+flux push artifact "oci://${REPO}:${TAG}" \
+--path=./ \
+--source="$(git config --get remote.origin.url)" \
+--revision="$(git branch --show-current)@sha1:$(git rev-parse HEAD)"
+
+https://github.com/MovingBitsGroupRoth?tab=packages
+
+### Helm
+cd "W:\Projekte_externe_GitHub_Referenzen\Flux CD\ocidemo\charts"
+
+helm package ocidemo-chart
+
+helm registry login ghcr.io --username MovingBitsGroupRoth 
+Password = ghp_xyz....
+
+helm push ocidemo-chart-1.1.1.tgz oci://ghcr.io/movingbitsgrouproth
+
+### Deploying K8s from OCI Registry
+flux create secret oci ghcr-secret --url=ghcr.io --username=movingbitsgrouproth --password=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
+
+k get secret -n flux-system
+
+cd "W:\Projekte\flux-demo\clusters\flux-cluster\demo7"
+
+flux create source oci demo7-source-oci --url=oci://ghcr.io/movingbitsgrouproth/ocidemo \
+--tag=872d790 \
+--secret-ref=ghcr-secret \
+--export > demo7-source-oci.yaml
+
+flux create kustomization demo7-kustomize-oci \
+--source=OCIRepository/demo7-source-oci \
+--target-namespace=ocidemo-ns \
+--prune=true \
+--export > demo7-kustomize-oci.yaml
+
+flux get sources oci  
+flux get kustomization  
+kubectl get namespace  
+kubectl get all -n ocidemo-ns
+
+### Deploying Helm Chart from OCI Registry
+
+cd "W:\Projekte\flux-demo\clusters\flux-cluster\demo8"
+
+flux create source oci demo8-source-oci \
+--url=oci://ghcr.io/movingbitsgrouproth/ocidemo-chart \
+--tag=1.1.1 \
+--secret-ref=ghcr-secret \
+--export > demo8-source-oci.yaml
+
+flux create hr demo8-helm-oci \
+--chart-ref=OCIRepository/demo8-source-oci \
+--export > demo8-helm-oci.yaml
+
+flux get sources oci  
+flux get kustomization  
+flux get hr  
+kubectl get namespace  
+kubectl get all -n ocidemo-chart-ns
+
+## Image Controller
+
+k get all -n flux-system
+
+flux bootstrap github \
+--token-auth \
+--owner=movingbitsgrouproth \
+--repository=flux-demo \
+--branch=main \
+--path=clusters/flux-cluster \
+--private=false \
+--personal=true \
+--components-extra=image-reflector-controller,image-automation-controller 
+
+k get all -n flux-system
+
+k api-resources | grep -i flux
+
+git pull
+
+W:\Projekte\flux-demo\clusters\flux-cluster\flux-system\gotk-components.yaml ist im Bereich components geändert
 
