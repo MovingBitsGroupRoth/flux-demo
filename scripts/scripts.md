@@ -112,9 +112,7 @@ Password = ghp_xyz....
 helm push ocidemo-chart-1.1.1.tgz oci://ghcr.io/movingbitsgrouproth
 
 ### Deploying K8s from OCI Registry
-flux create secret oci ghcr-secret --url=ghcr.io --username=movingbitsgrouproth --password=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
-
-k get secret -n flux-system
+2 Code-Zeilen im docx 
 
 cd "W:\Projekte\flux-demo\clusters\flux-cluster\demo7"
 
