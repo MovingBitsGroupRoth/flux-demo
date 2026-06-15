@@ -152,7 +152,7 @@ flux get hr
 k get namespace  
 k get all -n ocidemo-chart-ns
 
-## Image Controller
+## demo9 - Image Controller
 
 k get all -n flux-system
 
@@ -175,3 +175,9 @@ git pull
 W:\Projekte\flux-demo\clusters\flux-cluster\flux-system\gotk-components.yaml ist im Bereich components geändert
 
 k get namespace
+
+### Reparatur
+
+kubectl -n flux-system patch gitrepository flux-system --type=json \
+-p='[{"op":"remove","path":"/spec/secretRef"}]'
+
