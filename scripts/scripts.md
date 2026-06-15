@@ -149,8 +149,8 @@ flux create hr demo8-helm-oci \
 flux get sources oci  
 flux get kustomization  
 flux get hr  
-kubectl get namespace  
-kubectl get all -n ocidemo-chart-ns
+k get namespace  
+k get all -n ocidemo-chart-ns
 
 ## Image Controller
 
@@ -174,3 +174,4 @@ git pull
 
 W:\Projekte\flux-demo\clusters\flux-cluster\flux-system\gotk-components.yaml ist im Bereich components geändert
 
+k get namespace

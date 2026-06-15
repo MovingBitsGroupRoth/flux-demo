@@ -11,8 +11,8 @@ spec:
         branch: main
     commit:
       author:
-        email: yogesh.raheja@thinknyx.com
-        name: yogeshraheja
+        email: volker.roth@mbgr.de
+        name: movingbitsgrouproth
     push:
       branch: main
   interval: 1m0s
@@ -20,5 +20,5 @@ spec:
     kind: GitRepository
     name: flux-system
   update:
-    path: ./clusters/fluxcluster
+    path: ./clusters/flux-cluster
     strategy: Setters

@@ -5,5 +5,5 @@ metadata:
   name: demo9-image-repo
   namespace: flux-system
 spec:
-  image: yogeshraheja/fluxdemo
+  image: movingbitsgrouproth/fluxdemo
   interval: 1m0s
