@@ -11,8 +11,8 @@ spec:
         branch: main
     commit:
       author:
-        email: volker.roth@mbgr.de
-        name: movingbitsgrouproth
+        email: yogesh.raheja@thinknyx.com
+        name: yogeshraheja
     push:
       branch: main
   interval: 1m0s
